@@ -8,6 +8,7 @@ buildscript {
         classpath('org.asciidoctor:asciidoctor-gradle-plugin:0.7.0')
         classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4.preview.1')
         classpath('io.spring.gradle:spring-io-plugin:0.0.4.RELEASE')
+        classpath("org.jruby:jruby-complete:$jrubyVersion")
     }
 }
 
@@ -25,12 +26,12 @@ configure(allprojects - docProjects) {
     group = 'org.springframework.social'
 
     compileJava {
-        sourceCompatibility=1.5
-        targetCompatibility=1.5
+        sourceCompatibility=1.8
+        targetCompatibility=1.8
     }
     compileTestJava {
-        sourceCompatibility=1.7
-        targetCompatibility=1.7
+        sourceCompatibility=1.8
+        targetCompatibility=1.8
     }
 
     [compileJava, compileTestJava]*.options*.compilerArgs = [
@@ -275,7 +276,7 @@ configure(rootProject) {
     }
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '1.12'
+        gradleVersion = '4.4'
     }
 
 }
@@ -298,3 +299,11 @@ task updateRootDocs << {
 }
 
 build.dependsOn('updateRootDocs')
+
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
+  }
