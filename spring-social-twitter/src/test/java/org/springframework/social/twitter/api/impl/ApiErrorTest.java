@@ -49,7 +49,7 @@ public class ApiErrorTest extends AbstractTwitterApiTest {
 
 	@Test(expected = InvalidAuthorizationException.class)
 	public void badAccessToken() { // token is fabricated or fails signature validation
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 			.andExpect(method(GET))
 			.andRespond(withStatus(UNAUTHORIZED).body(jsonResource("error-invalid-token")).contentType(APPLICATION_JSON));
 		twitter.userOperations().getUserProfile();
@@ -57,7 +57,7 @@ public class ApiErrorTest extends AbstractTwitterApiTest {
 	
 	@Test(expected = RevokedAuthorizationException.class)
 	public void revokedToken() {
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 			.andExpect(method(GET))
 			.andRespond(withStatus(UNAUTHORIZED).body(jsonResource("error-revoked-token")).contentType(APPLICATION_JSON));
 		twitter.userOperations().getUserProfile();		
@@ -151,7 +151,7 @@ public class ApiErrorTest extends AbstractTwitterApiTest {
 
 	@Test(expected = RateLimitExceededException.class)
 	public void hourlyRateLimitExceeded() {
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 			.andExpect(method(GET))
 			.andRespond(withBadRequest().body("{\"error\":\"Rate limit exceeded. Clients may not make more than 350 requests per hour.\"}").contentType(APPLICATION_JSON));
 		twitter.userOperations().getUserProfile();

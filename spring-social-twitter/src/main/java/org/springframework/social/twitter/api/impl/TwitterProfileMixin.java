@@ -37,7 +37,8 @@ abstract class TwitterProfileMixin extends TwitterObjectMixin {
 			@JsonProperty("profile_image_url") String profileImageUrl, 
 			@JsonProperty("description") String description, 
 			@JsonProperty("location") String location, 
-			@JsonProperty("created_at") @JsonDeserialize(using=TimelineDateDeserializer.class) Date createdDate) {}
+			@JsonProperty("created_at") @JsonDeserialize(using=TimelineDateDeserializer.class) Date createdDate,
+            @JsonProperty("email") String email) {}
 	
 	@JsonProperty("notifications")
 	private boolean notificationsEnabled;

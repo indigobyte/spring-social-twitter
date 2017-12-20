@@ -52,7 +52,7 @@ class UserTemplate extends AbstractTwitterOperations implements UserOperations {
 
 	public TwitterProfile getUserProfile() {
 		requireUserAuthorization();
-		return restTemplate.getForObject(buildUri("account/verify_credentials.json"), TwitterProfile.class);
+		return restTemplate.getForObject(buildUri("account/verify_credentials.json", "include_email", "true"), TwitterProfile.class);
 	}
 
 	public TwitterProfile getUserProfile(String screenName) {

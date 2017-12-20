@@ -38,7 +38,7 @@ public class UserTemplateTest extends AbstractTwitterApiTest {
 
 	@Test
 	public void getProfileId() {
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 				.andExpect(method(GET))
 				.andRespond(withSuccess(jsonResource("twitter-profile"), APPLICATION_JSON));
 		assertEquals(161064614, twitter.userOperations().getProfileId());
@@ -46,7 +46,7 @@ public class UserTemplateTest extends AbstractTwitterApiTest {
 
 	@Test
 	public void getScreenName() {
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 				.andExpect(method(GET))
 				.andRespond(withSuccess(jsonResource("twitter-profile"), APPLICATION_JSON));
 		assertEquals("artnames", twitter.userOperations().getScreenName());
@@ -54,7 +54,7 @@ public class UserTemplateTest extends AbstractTwitterApiTest {
 
 	@Test
 	public void getUserProfile() throws Exception {
-		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json"))
+		mockServer.expect(requestTo("https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"))
 				.andExpect(method(GET))
 				.andRespond(withSuccess(jsonResource("twitter-profile"), APPLICATION_JSON));
 
