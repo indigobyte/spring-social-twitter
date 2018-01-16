@@ -60,12 +60,13 @@ public class TwitterProfile extends TwitterObject implements Serializable {
 	private String linkColor;
 	private boolean showAllInlineMedia;
     private String profileBannerUrl;
+	private final String email;
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public TwitterProfile(long id, String screenName, String name, String url, String profileImageUrl, String description, String location, Date createdDate) {
+	public TwitterProfile(long id, String screenName, String name, String url, String profileImageUrl, String description, String location, Date createdDate, String email) {
 		this.id = id;
 		this.screenName = screenName;
 		this.name = name;
@@ -74,6 +75,7 @@ public class TwitterProfile extends TwitterObject implements Serializable {
 		this.description = description;
 		this.location = location;
 		this.createdDate = createdDate;		
+		this.email = email;
 	}
 	
 	/**
@@ -346,7 +348,14 @@ public class TwitterProfile extends TwitterObject implements Serializable {
     public String getProfileBannerUrl() {
         return profileBannerUrl;
     }
-
+	/**
+	 * The user's email
+	 * 
+	 * @return The user's email
+	 */
+	public String getEmail() {
+		return email;
+	}
 	/**
 	 * Whether or not the user has selected to see all inline media from everyone.
 	 * If false, they will only see inline media from the users they follow.
@@ -466,6 +475,9 @@ public class TwitterProfile extends TwitterObject implements Serializable {
 		if (url != null ? !url.equals(that.url) : that.url != null) {
 			return false;
 		}
+		if (email != null ? !email.equals(that.email) : that.email != null) {
+			return false;
+		}
 
 		return true;
 	}
@@ -506,6 +518,8 @@ public class TwitterProfile extends TwitterObject implements Serializable {
 		result = 31 * result + (textColor != null ? textColor.hashCode() : 0);
 		result = 31 * result + (linkColor != null ? linkColor.hashCode() : 0);
 		result = 31 * result + (showAllInlineMedia ? 1 : 0);
+		result = 31 * result + (email != null ? email.hashCode() : 0);
+
 		return result;
 	}
 
